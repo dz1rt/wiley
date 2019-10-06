@@ -1,0 +1,12 @@
+<app-item-edit *ngIf="this.edit" (saved)="saveValue($event)" (canceled)="onToggle()"></app-item-edit>
+<div *ngIf="!this.edit" [@done]="status ? 'yes' : 'no'">
+  <div>{{item.title}}</div>
+  <a class="waves-effect waves-light btn-small" (click)="onDelete()">Удалить</a>
+  <a class="waves-effect waves-light btn-small" (click)="onToggle()">Редактировать</a>
+</div>
+<p>
+  <label>
+    <input type="checkbox" (click)="changeStatusTask()"/>
+    <span>Mark a task as completed</span>
+  </label>
+</p>
