@@ -6,6 +6,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css'],
+  providers: [ItemsService],
   animations: [
     trigger( 'done', [
       state('no', style({
@@ -20,7 +21,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     ])
   ],
 })
-export class ItemComponent extends ItemsService {
+export class ItemComponent{
 
   @Input() item;
   @Output() delete = new EventEmitter();
@@ -44,7 +45,7 @@ export class ItemComponent extends ItemsService {
 
       if (localStorageItem[key].title === title) {
         localStorageItem[key].title = newTitle;
-        localStorageItem.sort(this.sortItemsByTitle);
+        localStorageItem.sort(ItemsService.sortItemsByTitle);
 
         localStorage.setItem('items', JSON.stringify(localStorageItem));
       }

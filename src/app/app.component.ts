@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import {ItemsService} from './items.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ItemsService],
 })
-export class AppComponent extends ItemsService {
+export class AppComponent {
   items = JSON.parse(localStorage.getItem('items'));
 
+  constructor(private itemService: ItemsService ){
+    console.log(itemService);
+  }
   onCreate(inputsValue) {
 
     const newItem = {
@@ -16,7 +21,7 @@ export class AppComponent extends ItemsService {
     };
 
     this.items.push(newItem);
-    this.items.sort(this.sortItemsByTitle);
+    this.items.sort(ItemsService.sortItemsByTitle);
 
     const jsonObj = JSON.stringify(this.items);
     localStorage.setItem('items', jsonObj);
